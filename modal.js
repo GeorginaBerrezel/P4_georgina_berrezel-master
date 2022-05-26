@@ -145,6 +145,7 @@ function birthdayDateCheck(birthdayDate, errorBirthdate, textErrorEmpty) {
   console.log(birthdayDate.value);
   if (birthdayDate.value == "") {
     errorBirthdate.innerHTML = textErrorEmpty;
+    console.log('test');
     birthdayDate.style.border = "2px solid #e54858";
     birthdayDate = false;
     return false;
