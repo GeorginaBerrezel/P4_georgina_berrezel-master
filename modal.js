@@ -63,7 +63,7 @@ const errorLastName = document.querySelector("#errorlastname");
 const errorEmail = document.querySelector("#errorEmail");
 const errorBirthdate = document.querySelector("#errorBirthdate");
 const errorQuantityTournament = document.querySelector("#errorQuantityTournament");
-const errorWhichTown = document.querySelector("#errorWhichTown");
+const errorWichTown = document.querySelector("#errorWhichTown");
 const errorConditionUser = document.querySelector("#errorconditionuser");
 
 // launch modal form
@@ -102,7 +102,7 @@ function controlForm(event) {
     "Veuillez préciser dans ce champ le nombre de tournois GameOn auquel vous avez participé.",
     "Vous devez saisir seulement des chiffres.");
 
-  wichTownValid = controlInputWichTown(wichTown, errorWhichTown,
+  wichTownValid = controlInputWichTown(wichTown, errorWichTown,
     "Veuillez sélectionner au moins un choix de ville.");
 
   conditionUserValid = conditionUserCheck (conditionUser, errorConditionUser);  
@@ -128,9 +128,7 @@ function controlInputEmail(input, inputError, textErrorEmpty) {
   console.log('controlInputEmail');
   /*const validEmail = regExpEmail.test(input.value)*/
   if (input.value.length < 2) {
-    console.log('toto');
     inputError.innerHTML = textErrorEmpty;
-    console.log('toto2');
     input.style.border = "2px solid #e54858";
     return false;
   }else {
@@ -159,8 +157,10 @@ function birthdayDateCheck(birthdayDate, errorBirthdate, textErrorEmpty) {
 
 //Function quantité de tournoi
 function controlInputQuantity(quantityTournament, errorQuantityTournament, /*regExpNumbers,*/quantityTournamentValid) {
+  console.log(controlInput.value);
   /*const validQuantityTournament = regExpNumbers.test(input.value)*/
-  console.log('validQuantityTournament');
+  /*console.log('validQuantityTournament');*/
+  console.log('test');
   if (quantityTournament.value == "") {
     quantityTournament.innerHTML = textErrorEmpty;
     quantityTournament.style.border = "2px solid #e54858";
@@ -175,17 +175,17 @@ function controlInputQuantity(quantityTournament, errorQuantityTournament, /*reg
 }
 
 //Function champ Radio "Dans quelle ville"
-function controlInputWichTown(wichTownValid, errorWhichTown, textErrorEmpty) {
+function controlInputWichTown(wichTownValid, errorWichTown, textErrorEmpty) {
   console.log('controlInputWichTown');
-  for (let i=0; i < whichTown.length; i++) {
-    if (whichTown[i].checked) {
-        whichTownValid = true;
-        errorWhichTown.innerHTML = textErrorEmpty;
+  for (let i=0; i < wichTown.length; i++) {
+    if (wichTown[i].checked) {
+        wichTownValid = true;
+        errorWichTown.innerHTML = textErrorEmpty;
         wichTown.style.border = "2px solid #e54858";
     }
   }
-    if (whichTownValid===false) {
-      errorWhichTown.innerHTML = "Veuillez sélectionner au moins un choix de ville.";
+    if (wichTownValid===false) {
+      errorWichTown.innerHTML = "Veuillez sélectionner au moins un choix de ville.";
     }
   }
 
