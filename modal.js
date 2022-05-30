@@ -53,7 +53,7 @@ const firstName = document.querySelector("#first");
 const lastName = document.querySelector("#last");
 const email = document.querySelector("#email");
 const birthdayDate = document.querySelector("#birthdate");
-const quantityTournament = document.querySelector("quantity");
+const quantityTournament = document.querySelector("#quantity");
 const wichTown = document.querySelectorAll('input[name="location"]');
 const conditionUser = document.querySelector("#checkbox1");
 
@@ -98,7 +98,7 @@ function controlForm(event) {
   birthdayDateValid = birthdayDateCheck (birthdayDate, errorBirthdate,
     "Veuillez précisez votre date de naissance dans ce champ.");
 
-  quantityTournamentValid = controlInputQuantity(quantityTournament, errorQuantityTournament,/* regExpNumbers, quantityTournamentValid,*/ 
+  quantityTournamentValid = controlInputQuantity(quantityTournament, errorQuantityTournament,/* regExpNumbers,*/ 
     "Veuillez préciser dans ce champ le nombre de tournois GameOn auquel vous avez participé.",
     "Vous devez saisir seulement des chiffres.");
 
@@ -125,7 +125,7 @@ function controlInputNames(input, inputError, textErrorEmpty) {
 
 // Fonction de vérification du champ email
 function controlInputEmail(input, inputError, textErrorEmpty) {
-  console.log('controlInputEmail');
+  /*console.log('controlInputEmail');*/
   /*const validEmail = regExpEmail.test(input.value)*/
   if (input.value.length < 2) {
     inputError.innerHTML = textErrorEmpty;
@@ -140,10 +140,10 @@ function controlInputEmail(input, inputError, textErrorEmpty) {
 
 //function birthdayDatecheck
 function birthdayDateCheck(birthdayDate, errorBirthdate, textErrorEmpty) {
-  console.log(birthdayDate.value);
+  /*console.log(birthdayDate.value);*/
   if (birthdayDate.value == "") {
     errorBirthdate.innerHTML = textErrorEmpty;
-    console.log('test');
+   /* console.log('test');*/
     birthdayDate.style.border = "2px solid #e54858";
     birthdayDate = false;
     return false;
@@ -156,13 +156,14 @@ function birthdayDateCheck(birthdayDate, errorBirthdate, textErrorEmpty) {
 }
 
 //Function quantité de tournoi
-function controlInputQuantity(quantityTournament, errorQuantityTournament, /*regExpNumbers,*/quantityTournamentValid) {
-  console.log(controlInput.value);
+function controlInputQuantity(quantityTournament, errorQuantityTournament, textErrorEmpty, regExpNumbers, quantityTournamentValid) {
+  console.log(quantityTournament.value);
   /*const validQuantityTournament = regExpNumbers.test(input.value)*/
   /*console.log('validQuantityTournament');*/
-  console.log('test');
-  if (quantityTournament.value == "") {
-    quantityTournament.innerHTML = textErrorEmpty;
+  /*console.log('test');*/
+  if (quantityTournament.value == "" || quantityTournament.value < 1 ) {
+    errorQuantityTournament.innerHTML = textErrorEmpty;
+    console.log('test');
     quantityTournament.style.border = "2px solid #e54858";
     quantityTournament = false;
     return false;
