@@ -98,19 +98,19 @@ function controlForm(event) {
   birthdayDateValid = birthdayDateCheck (birthdayDate, errorBirthdate,
     "Veuillez précisez votre date de naissance dans ce champ.");
 
-  quantityTournamentValid = controlInputQuantity(quantityTournament, errorQuantityTournament,/* regExpNumbers,*/ 
+  quantityTournamentValid = controlInputQuantity(quantityTournament, errorQuantityTournament,
     "Veuillez préciser dans ce champ le nombre de tournois GameOn auquel vous avez participé.",
     "Vous devez saisir seulement des chiffres.");
 
   wichTownValid = controlInputWichTown(wichTown, errorWichTown,
     "Veuillez sélectionner au moins un choix de ville.");
 
-  conditionUserValid = conditionUserCheck (conditionUser, errorConditionUser);  
-
+  conditionUserValid = conditionUserCheck (conditionUser, errorConditionUser,
+    "Veuillez acceptez les conditions d'utilisation.");  
   }
 
 /*Nouvelle fonctions*/
-// Fonction de vérification des champs prénom et nom
+// Function FIRST NAME & LAST NAME
 function controlInputNames(input, inputError, textErrorEmpty) {
   if (input.value.length < 2) {
     inputError.innerHTML = textErrorEmpty;
@@ -123,7 +123,7 @@ function controlInputNames(input, inputError, textErrorEmpty) {
   }
 }
 
-// Fonction de vérification du champ email
+// Function EMAIL
 function controlInputEmail(input, inputError, textErrorEmpty) {
   /*console.log('controlInputEmail');*/
   /*const validEmail = regExpEmail.test(input.value)*/
@@ -138,7 +138,7 @@ function controlInputEmail(input, inputError, textErrorEmpty) {
   }
 }
 
-//function birthdayDatecheck
+//Function BIRTHDAY DATE
 function birthdayDateCheck(birthdayDate, errorBirthdate, textErrorEmpty) {
   /*console.log(birthdayDate.value);*/
   if (birthdayDate.value == "") {
@@ -155,15 +155,10 @@ function birthdayDateCheck(birthdayDate, errorBirthdate, textErrorEmpty) {
   }
 }
 
-//Function quantité de tournoi
-function controlInputQuantity(quantityTournament, errorQuantityTournament, textErrorEmpty, regExpNumbers, quantityTournamentValid) {
-  console.log(quantityTournament.value);
-  /*const validQuantityTournament = regExpNumbers.test(input.value)*/
-  /*console.log('validQuantityTournament');*/
-  /*console.log('test');*/
+//FUNTION QUANTITY TOURNAMENT
+function controlInputQuantity(quantityTournament, errorQuantityTournament, textErrorEmpty, quantityTournamentValid) {
   if (quantityTournament.value == "" || quantityTournament.value < 1 ) {
     errorQuantityTournament.innerHTML = textErrorEmpty;
-    console.log('test');
     quantityTournament.style.border = "2px solid #e54858";
     quantityTournament = false;
     return false;
@@ -175,22 +170,54 @@ function controlInputQuantity(quantityTournament, errorQuantityTournament, textE
 }
 }
 
-//Function champ Radio "Dans quelle ville"
-function controlInputWichTown(wichTownValid, errorWichTown, textErrorEmpty) {
-  console.log('controlInputWichTown');
-  for (let i=0; i < wichTown.length; i++) {
-    if (wichTown[i].checked) {
-        wichTownValid = true;
-        errorWichTown.innerHTML = textErrorEmpty;
-        wichTown.style.border = "2px solid #e54858";
-    }
-  }
-    if (wichTownValid===false) {
-      errorWichTown.innerHTML = "Veuillez sélectionner au moins un choix de ville.";
-    }
-  }
+//Function WICH TOWN
+function controlInputWichTown(wichTownValid, errorWichTown, /*textErrorEmpty*/){
+for (let i=0; i < wichTown.length; i++) {
+if (wichTown[i].checked) {
+    wichTownValid = true;
+      /*errorWichTown.innerHTML = textErrorEmpty;*/
+      /*wichTown.style.border = "2px solid #e54858";*/
+}
+ }
+ if (wichTownValid===false) {
+   errorWichTown.innerHTML = "Veuillez sélectionner au moins un choix de ville.";
+ }
+}
 
-// Vérification du checkbox des conditions d'utilisation
+
+
+/*
+function controlInputWichTown() {
+  wichTown.setAttribute('data-error-visible', 'true');
+  for (let i = 0; i < wichTown.length; i++) {
+      if (wichTown[i].checked) {
+        wichTown.setAttribute('data-error-visible', 'false');
+          return true;
+      }
+  }
+  return false;
+}
+*/
+
+
+/*
+function controlInputWichTown(wichTownValid, errorWichTown,){
+    let checkbox=document.getElementsByName("location");
+    if (checkbox.checked == null || x == "") {
+        wichTown check=false;
+        return false;
+    }
+
+    if(check != false && !confirm('confirm submit?')){
+        e.preventDefault();
+        return false;
+    }
+    return true;
+}
+*/
+
+// Function USER CHECK
+/*
 function conditionUserCheck(conditionUserValid, errorConditionUser) {
   if(conditionUser.checked) {
     errorConditionUser.innerHTML = "";
@@ -200,3 +227,65 @@ function conditionUserCheck(conditionUserValid, errorConditionUser) {
     conditionUserValid = false;
   }
 }
+*/
+
+function conditionUserCheck() {
+  if (checkbox1.checked === false) {
+      checkbox1.parentElement.setAttribute('data-error-visible', 'true');
+      return false;
+  }
+  checkbox1.parentElement.setAttribute('data-error-visible', 'false');
+  return true;
+}
+
+
+
+// FOR ALL FIELDS VALIDATION
+function checkAllFields() {
+  controlInputNames()
+  controlInputEmail()
+  birthdayDateCheck()
+  controlInputQuantity()
+  controlInputWichTown()
+  conditionUserCheck()
+}
+
+function formValidation() {
+  if (controlInputNames() === true &&
+  controlInputEmail() === true &&
+  birthdayDateCheck() === true &&
+  controlInputQuantity() === true &&
+  controlInputWichTown() === true &&
+  conditionUserCheck() === true ) {
+      return true;
+  }
+  return false;
+}
+
+
+
+// DOM ELEMENTS SUBMITTED CONFIRMATION
+const modalSubmit = document.getElementsByClassName('container-confirmation-submit');
+const closeModalSubmit = document.getElementsByClassName('close-modal-submit');
+const closeBtnConfirmation = document.getElementById('close-btn-confirmation');
+
+// ------ SUBMITTED CONFIRMATION ------ //
+// DISPLAY MODAL SUBMIT
+function displayModalSubmit() {
+    modalbg.style.display = 'none';
+    modalSubmit[0].style.display = 'block';
+}
+
+// CLOSE SUBMIT
+function closeSubmit() {
+    modalSubmit[0].style.display = 'none';
+    first.style.border = 'none';
+    last.style.border = 'none';
+    email.style.border = 'none';
+    birthdate.style.border = 'none';
+    quantity.style.border = 'none';
+}
+
+// EVENT CLOSE MODAL SUBMIT
+closeModalSubmit[0].addEventListener('click', closeSubmit);
+closeBtnConfirmation.addEventListener('click', closeSubmit);
