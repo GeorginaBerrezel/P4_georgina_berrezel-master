@@ -63,7 +63,7 @@ const errorLastName = document.querySelector("#errorlastname");
 const errorEmail = document.querySelector("#errorEmail");
 const errorBirthdate = document.querySelector("#errorBirthdate");
 const errorQuantityTournament = document.querySelector("#errorQuantityTournament");
-const errorWichTown = document.querySelector("#errorWhichTown");
+const errorWichTown = document.querySelector("#errorWichTown");
 const errorConditionUser = document.querySelector("#errorconditionuser");
 
 // launch modal form
@@ -95,7 +95,7 @@ function controlForm(event) {
   emailValid = controlInputEmail(email, errorEmail, /*regExpEmail,*/
     "L'adresse email saisie est incorrecte.");
 
-  birthdayDateValid = birthdayDateCheck (birthdayDate, errorBirthdate,
+  birthdayDateValid = birthdayDateCheck(birthdayDate, errorBirthdate,
     "Veuillez précisez votre date de naissance dans ce champ.");
 
   quantityTournamentValid = controlInputQuantity(quantityTournament, errorQuantityTournament,
@@ -105,9 +105,9 @@ function controlForm(event) {
   wichTownValid = controlInputWichTown(wichTown, errorWichTown,
     "Veuillez sélectionner au moins un choix de ville.");
 
-  conditionUserValid = conditionUserCheck (conditionUser, errorConditionUser,
-    "Veuillez acceptez les conditions d'utilisation.");  
-  }
+  conditionUserValid = conditionUserCheck(conditionUser, errorConditionUser,
+    "Veuillez acceptez les conditions d'utilisation.");
+}
 
 /*Nouvelle fonctions*/
 // Function FIRST NAME & LAST NAME
@@ -116,7 +116,7 @@ function controlInputNames(input, inputError, textErrorEmpty) {
     inputError.innerHTML = textErrorEmpty;
     input.style.border = "2px solid #e54858";
     return false;
-  }else {
+  } else {
     input.style.border = "0px";
     inputError.innerHTML = "";
     return true;
@@ -131,7 +131,7 @@ function controlInputEmail(input, inputError, textErrorEmpty) {
     inputError.innerHTML = textErrorEmpty;
     input.style.border = "2px solid #e54858";
     return false;
-  }else {
+  } else {
     input.style.border = "0px";
     inputError.innerHTML = "";
     return true;
@@ -143,11 +143,11 @@ function birthdayDateCheck(birthdayDate, errorBirthdate, textErrorEmpty) {
   /*console.log(birthdayDate.value);*/
   if (birthdayDate.value == "") {
     errorBirthdate.innerHTML = textErrorEmpty;
-   /* console.log('test');*/
+    /* console.log('test');*/
     birthdayDate.style.border = "2px solid #e54858";
     birthdayDate = false;
     return false;
-  }else {
+  } else {
     birthdayDateValid = true;
     birthdayDate.style.border = "Opx";
     errorBirthdate.innerHTML = "";
@@ -157,64 +157,34 @@ function birthdayDateCheck(birthdayDate, errorBirthdate, textErrorEmpty) {
 
 //FUNTION QUANTITY TOURNAMENT
 function controlInputQuantity(quantityTournament, errorQuantityTournament, textErrorEmpty, quantityTournamentValid) {
-  if (quantityTournament.value == "" || quantityTournament.value < 1 ) {
+  if (quantityTournament.value == "" || quantityTournament.value < 1) {
     errorQuantityTournament.innerHTML = textErrorEmpty;
     quantityTournament.style.border = "2px solid #e54858";
     quantityTournament = false;
     return false;
-  }else {
+  } else {
     quantityTournamentValid = true;
     quantityTournament.style.border = "0px";
     errorQuantityTournament.innerHTML = "";
     return true;
-}
+  }
 }
 
 //Function WICH TOWN
-function controlInputWichTown(wichTownValid, errorWichTown, /*textErrorEmpty*/){
-for (let i=0; i < wichTown.length; i++) {
-if (wichTown[i].checked) {
-    wichTownValid = true;
-      /*errorWichTown.innerHTML = textErrorEmpty;*/
-      /*wichTown.style.border = "2px solid #e54858";*/
-}
- }
- if (wichTownValid===false) {
-   errorWichTown.innerHTML = "Veuillez sélectionner au moins un choix de ville.";
- }
-}
-
-
-
-/*
-function controlInputWichTown() {
-  wichTown.setAttribute('data-error-visible', 'true');
+function controlInputWichTown(wichTown, errorWichTown, textErrorEmpty) {
   for (let i = 0; i < wichTown.length; i++) {
-      if (wichTown[i].checked) {
-        wichTown.setAttribute('data-error-visible', 'false');
-          return true;
-      }
+    if (wichTown[i].checked) 
+    {
+      errorWichTown.innerHTML = "";
+      return true;
+    }
   }
-  return false;
-}
-*/
+      errorWichTown.innerHTML = textErrorEmpty;
+     /* wichTown.style.border = "2px solid #e54858";*/
+      return false;
+  }
 
 
-/*
-function controlInputWichTown(wichTownValid, errorWichTown,){
-    let checkbox=document.getElementsByName("location");
-    if (checkbox.checked == null || x == "") {
-        wichTown check=false;
-        return false;
-    }
-
-    if(check != false && !confirm('confirm submit?')){
-        e.preventDefault();
-        return false;
-    }
-    return true;
-}
-*/
 
 // Function USER CHECK
 /*
@@ -231,8 +201,8 @@ function conditionUserCheck(conditionUserValid, errorConditionUser) {
 
 function conditionUserCheck() {
   if (checkbox1.checked === false) {
-      checkbox1.parentElement.setAttribute('data-error-visible', 'true');
-      return false;
+    checkbox1.parentElement.setAttribute('data-error-visible', 'true');
+    return false;
   }
   checkbox1.parentElement.setAttribute('data-error-visible', 'false');
   return true;
@@ -251,13 +221,14 @@ function checkAllFields() {
 }
 
 function formValidation() {
-  if (controlInputNames() === true &&
-  controlInputEmail() === true &&
-  birthdayDateCheck() === true &&
-  controlInputQuantity() === true &&
-  controlInputWichTown() === true &&
-  conditionUserCheck() === true ) {
-      return true;
+  if (firstNameValid &&
+    lastNameValid &&
+    emailValid &&
+    birthdayDateValid &&
+    quantityTournamentValid &&
+    wichTownValid &&
+    conditionUserValid) {
+    return true;
   }
   return false;
 }
@@ -272,18 +243,18 @@ const closeBtnConfirmation = document.getElementById('close-btn-confirmation');
 // ------ SUBMITTED CONFIRMATION ------ //
 // DISPLAY MODAL SUBMIT
 function displayModalSubmit() {
-    modalbg.style.display = 'none';
-    modalSubmit[0].style.display = 'block';
+  modalbg.style.display = 'none';
+  modalSubmit[0].style.display = 'block';
 }
 
 // CLOSE SUBMIT
 function closeSubmit() {
-    modalSubmit[0].style.display = 'none';
-    first.style.border = 'none';
-    last.style.border = 'none';
-    email.style.border = 'none';
-    birthdate.style.border = 'none';
-    quantity.style.border = 'none';
+  modalSubmit[0].style.display = 'none';
+  first.style.border = 'none';
+  last.style.border = 'none';
+  email.style.border = 'none';
+  birthdate.style.border = 'none';
+  quantity.style.border = 'none';
 }
 
 // EVENT CLOSE MODAL SUBMIT
