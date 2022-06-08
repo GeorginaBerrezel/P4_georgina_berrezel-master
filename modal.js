@@ -64,6 +64,8 @@ const errorEmail = document.querySelector("#errorEmail");
 const errorBirthdate = document.querySelector("#errorBirthdate");
 const errorQuantityTournament = document.querySelector("#errorQuantityTournament");
 const errorWichTown = document.querySelector("#errorWichTown");
+
+// vérifier ce selecteur !!!!!!!!!!!!!!!
 const errorConditionUser = document.querySelector("#errorconditionuser");
 
 // launch modal form
@@ -84,10 +86,14 @@ modalBtn.forEach((btn) => btn.addEventListener("click", () => modalbg.style.disp
 
 // Vérification des champs prénom, nom et email
 modalBtnSubmit.addEventListener("click", controlForm);
+
+
 function controlForm(event) {
   event.preventDefault();
   firstNameValid = controlInputNames(firstName, errorFirstName,
     "Veuillez entrer 2 caractères ou plus pour le champ du prénom");
+
+  console.log(firstNameValid);
 
   lastNameValid = controlInputNames(lastName, errorLastName,
     "Veuillez entrer 2 caractères ou plus pour le champ du nom");
@@ -105,8 +111,12 @@ function controlForm(event) {
   wichTownValid = controlInputWichTown(wichTown, errorWichTown,
     "Veuillez sélectionner au moins un choix de ville.");
 
+  // vérifeir que errorConditionUser est correctement rempli par le selecteur du haut
+  // faire u nconsole log de errorConditionUser  pour voir si il y a une valeur quand on check
   conditionUserValid = conditionUserCheck(conditionUser, errorConditionUser,
     "Veuillez acceptez les conditions d'utilisation.");
+
+    formValidation();
 }
 
 /*Nouvelle fonctions*/
@@ -140,16 +150,19 @@ function controlInputEmail(input, inputError, textErrorEmpty) {
 
 //Function BIRTHDAY DATE
 function birthdayDateCheck(birthdayDate, errorBirthdate, textErrorEmpty) {
-  /*console.log(birthdayDate.value);*/
+  console.log(birthdayDate.value);
   if (birthdayDate.value == "") {
+    console.log('erreur');
     errorBirthdate.innerHTML = textErrorEmpty;
     /* console.log('test');*/
     birthdayDate.style.border = "2px solid #e54858";
     birthdayDate = false;
     return false;
   } else {
+    console.log('erreur');
+
     birthdayDateValid = true;
-    birthdayDate.style.border = "Opx";
+    birthdayDate.style.border = "3px solid green";
     errorBirthdate.innerHTML = "";
     return true;
   }
@@ -173,22 +186,23 @@ function controlInputQuantity(quantityTournament, errorQuantityTournament, textE
 //Function WICH TOWN
 function controlInputWichTown(wichTown, errorWichTown, textErrorEmpty) {
   for (let i = 0; i < wichTown.length; i++) {
-    if (wichTown[i].checked) 
-    {
+    if (wichTown[i].checked) {
       errorWichTown.innerHTML = "";
       return true;
     }
   }
-      errorWichTown.innerHTML = textErrorEmpty;
-     /* wichTown.style.border = "2px solid #e54858";*/
-      return false;
-  }
+  errorWichTown.innerHTML = textErrorEmpty;
+  /* wichTown.style.border = "2px solid #e54858";*/
+  return false;
+}
 
 
 
 // Function USER CHECK
-/*
+
 function conditionUserCheck(conditionUserValid, errorConditionUser) {
+  // faire un console log de errorConditionUser quand on check la case ca doit afficher une valeur
+  
   if(conditionUser.checked) {
     errorConditionUser.innerHTML = "";
     conditionUserValid = true;
@@ -197,8 +211,8 @@ function conditionUserCheck(conditionUserValid, errorConditionUser) {
     conditionUserValid = false;
   }
 }
-*/
 
+/*
 function conditionUserCheck() {
   if (checkbox1.checked === false) {
     checkbox1.parentElement.setAttribute('data-error-visible', 'true');
@@ -206,10 +220,10 @@ function conditionUserCheck() {
   }
   checkbox1.parentElement.setAttribute('data-error-visible', 'false');
   return true;
-}
+}*/
 
 
-
+/*
 // FOR ALL FIELDS VALIDATION
 function checkAllFields() {
   controlInputNames()
@@ -219,18 +233,24 @@ function checkAllFields() {
   controlInputWichTown()
   conditionUserCheck()
 }
+*/
 
+
+// fonction qui verifie si les controles de champs sont ok = true
 function formValidation() {
-  if (firstNameValid &&
-    lastNameValid &&
-    emailValid &&
-    birthdayDateValid &&
-    quantityTournamentValid &&
-    wichTownValid &&
-    conditionUserValid) {
-    return true;
+
+  if (firstNameValid === true 
+    && lastNameValid === true 
+    && emailValid === true 
+    && birthdayDateValid === true 
+    && quantityTournamentValid === true 
+    && wichTownValid === true 
+    && conditionUserValid === true) {
+      // on affiche la modale de remeciement avec un display block sur l'éléement
+
+  modalSubmit[0].style.display = 'block';
   }
-  return false;
+
 }
 
 
@@ -241,6 +261,8 @@ const closeModalSubmit = document.getElementsByClassName('close-modal-submit');
 const closeBtnConfirmation = document.getElementById('close-btn-confirmation');
 
 // ------ SUBMITTED CONFIRMATION ------ //
+
+
 // DISPLAY MODAL SUBMIT
 function displayModalSubmit() {
   modalbg.style.display = 'none';
