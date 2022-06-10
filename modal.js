@@ -66,7 +66,7 @@ const errorQuantityTournament = document.querySelector("#errorQuantityTournament
 const errorWichTown = document.querySelector("#errorWichTown");
 
 // vérifier ce selecteur !!!!!!!!!!!!!!!
-const errorConditionUser = document.querySelector("#errorconditionuser");
+const errorConditionUser = document.querySelector("#errorConditionUser");
 
 // launch modal form
 function launchModal() {
@@ -113,10 +113,12 @@ function controlForm(event) {
 
   // vérifeir que errorConditionUser est correctement rempli par le selecteur du haut
   // faire u nconsole log de errorConditionUser  pour voir si il y a une valeur quand on check
+
   conditionUserValid = conditionUserCheck(conditionUser, errorConditionUser,
     "Veuillez acceptez les conditions d'utilisation.");
 
-    formValidation();
+
+  formValidation();
 }
 
 /*Nouvelle fonctions*/
@@ -127,7 +129,7 @@ function controlInputNames(input, inputError, textErrorEmpty) {
     input.style.border = "2px solid #e54858";
     return false;
   } else {
-    input.style.border = "0px";
+    input.style.border = "2px solid green";
     inputError.innerHTML = "";
     return true;
   }
@@ -142,7 +144,7 @@ function controlInputEmail(input, inputError, textErrorEmpty) {
     input.style.border = "2px solid #e54858";
     return false;
   } else {
-    input.style.border = "0px";
+    input.style.border = "2px solid green";
     inputError.innerHTML = "";
     return true;
   }
@@ -162,7 +164,7 @@ function birthdayDateCheck(birthdayDate, errorBirthdate, textErrorEmpty) {
     console.log('erreur');
 
     birthdayDateValid = true;
-    birthdayDate.style.border = "3px solid green";
+    birthdayDate.style.border = "2px solid green";
     errorBirthdate.innerHTML = "";
     return true;
   }
@@ -177,7 +179,7 @@ function controlInputQuantity(quantityTournament, errorQuantityTournament, textE
     return false;
   } else {
     quantityTournamentValid = true;
-    quantityTournament.style.border = "0px";
+    quantityTournament.style.border = "2px solid green";
     errorQuantityTournament.innerHTML = "";
     return true;
   }
@@ -200,15 +202,14 @@ function controlInputWichTown(wichTown, errorWichTown, textErrorEmpty) {
 
 // Function USER CHECK
 
-function conditionUserCheck(conditionUserValid, errorConditionUser) {
+function conditionUserCheck(conditionUser, errorConditionUser) {
   // faire un console log de errorConditionUser quand on check la case ca doit afficher une valeur
-  
-  if(conditionUser.checked) {
+  if (conditionUser.checked) {
     errorConditionUser.innerHTML = "";
-    conditionUserValid = true;
-  }else {
+    return true
+  } else {
     errorConditionUser.innerHTML = "Veuillez acceptez les conditions d'utilisation.";
-    conditionUserValid = false;
+    return false
   }
 }
 
@@ -238,17 +239,24 @@ function checkAllFields() {
 
 // fonction qui verifie si les controles de champs sont ok = true
 function formValidation() {
+  console.log(firstNameValid);
+  console.log(lastNameValid);
+  console.log(emailValid);
+  console.log(birthdayDateValid);
+  console.log(wichTownValid);
+  console.log(conditionUserValid);
 
-  if (firstNameValid === true 
-    && lastNameValid === true 
-    && emailValid === true 
-    && birthdayDateValid === true 
-    && quantityTournamentValid === true 
-    && wichTownValid === true 
+
+  if (firstNameValid === true
+    && lastNameValid === true
+    && emailValid === true
+    && birthdayDateValid === true
+    && quantityTournamentValid === true
+    && wichTownValid === true
     && conditionUserValid === true) {
-      // on affiche la modale de remeciement avec un display block sur l'éléement
-
-  modalSubmit[0].style.display = 'block';
+    // on affiche la modale de remeciement avec un display block sur l'éléement
+    console.log(modalSubmit[0].style.display);
+    modalSubmit[0].style.display = 'block';
   }
 
 }
