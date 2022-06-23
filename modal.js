@@ -56,6 +56,7 @@ const birthdayDate = document.querySelector("#birthdate");
 const quantityTournament = document.querySelector("#quantity");
 const wichTown = document.querySelectorAll('input[name="location"]');
 const conditionUser = document.querySelector("#checkbox1");
+const form = document.getElementById('form');
 
 // Définition des constantes d'erreur 
 const errorFirstName = document.querySelector("#errorfirstname");
@@ -224,18 +225,6 @@ function conditionUserCheck() {
 }*/
 
 
-/*
-// FOR ALL FIELDS VALIDATION
-function checkAllFields() {
-  controlInputNames()
-  controlInputEmail()
-  birthdayDateCheck()
-  controlInputQuantity()
-  controlInputWichTown()
-  conditionUserCheck()
-}
-*/
-
 
 // fonction qui verifie si les controles de champs sont ok = true
 function formValidation() {
@@ -290,3 +279,28 @@ function closeSubmit() {
 // EVENT CLOSE MODAL SUBMIT
 closeModalSubmit[0].addEventListener('click', closeSubmit);
 closeBtnConfirmation.addEventListener('click', closeSubmit);
+
+// FOR ALL FIELDS VALIDATION
+function forAllFieldsValidation() {
+  checkFirstName()
+  checkLastName()
+  checkEmail()
+  checkBirthdate()
+  checkTournamentsQuantity()
+  checkLocations()
+  checkCheckBox()
+}
+
+// SEND FORM
+
+function submitForm(e) {
+  e.preventDefault();
+  console.log(formValidation());
+  if (formValidation() ==true)
+  { console.log('toto');
+    displayModalSubmit();
+    form.reset();
+  } else {
+    forAllFieldsValidation();
+  }
+}
