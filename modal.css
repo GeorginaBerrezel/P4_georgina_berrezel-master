@@ -226,6 +226,12 @@ input {
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
 }
+
+span.error {
+  font-size: 0.6em;
+  color: #e54858;
+
+}
 /* 
 input[data-error]::after {
     content: attr(data-error);
@@ -421,6 +427,7 @@ input[data-error]::after {
   position: relative;
   text-align: left;
   min-width: 424px;
+  /*min-width: 290px;*/
 }
 .hero-content::after {
   content: "";
@@ -584,6 +591,7 @@ footer {
   }
   .hero-text {
     width: unset;
+    /*width: 60%;*/
     font-size: 1.5rem;
   }
   .hero-img img {

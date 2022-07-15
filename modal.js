@@ -246,8 +246,9 @@ function formValidation() {
     // on affiche la modale de remeciement avec un display block sur l'éléement
     console.log(modalSubmit[0].style.display);
     modalSubmit[0].style.display = 'block';
+    return true;
   }
-
+  return false;
 }
 
 
@@ -274,6 +275,8 @@ function closeSubmit() {
   email.style.border = 'none';
   birthdate.style.border = 'none';
   quantity.style.border = 'none';
+  firstName = '';
+  lastName = '';
 }
 
 // EVENT CLOSE MODAL SUBMIT
@@ -294,13 +297,26 @@ function forAllFieldsValidation() {
 // SEND FORM
 
 function submitForm(e) {
+  /*console.log(e);*/
   e.preventDefault();
-  console.log(formValidation());
-  if (formValidation() ==true)
-  { console.log('toto');
+ /* console.log(formValidation());*/
+  if (formValidation() == true) {
     displayModalSubmit();
-    form.reset();
+    firstName.value = ""
+    lastName.value = ""
+    birthdayDate.value = ""
+    quantityTournament.value = ""
+    wichTown.value = ""
+    conditionUser.value = ""
+
   } else {
     forAllFieldsValidation();
+    document.getElementById("form").reset();
+
   }
 }
+/*
+function formValidation() {
+  document.getElementById("form").reset();
+}
+*/
