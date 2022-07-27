@@ -44,7 +44,7 @@ let quantityTournamentValid = false;
 let wichTownValid = false;
 let conditionUserValid = false;
 let regExpName = /^[A-Za-z\-]{2,}$/;
-let regExpEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+let regExpEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 let regExpNumbers = /^[0-9]*$/;
 
 
@@ -99,7 +99,7 @@ function controlForm(event) {
   lastNameValid = controlInputNames(lastName, errorLastName,
     "Veuillez entrer 2 caractères ou plus pour le champ du nom");
 
-  emailValid = controlInputEmail(email, errorEmail, /*regExpEmail,*/
+  emailValid = controlInputEmail(email, errorEmail,
     "L'adresse email saisie est incorrecte.");
 
   birthdayDateValid = birthdayDateCheck(birthdayDate, errorBirthdate,
@@ -138,16 +138,22 @@ function controlInputNames(input, inputError, textErrorEmpty) {
 
 // Function EMAIL
 function controlInputEmail(input, inputError, textErrorEmpty) {
-  /*console.log('controlInputEmail');*/
-  /*const validEmail = regExpEmail.test(input.value)*/
+  const validRegexEmail = regExpEmail.test(input.value)
+  console.log(validRegexEmail);
   if (input.value.length < 2) {
     inputError.innerHTML = textErrorEmpty;
     input.style.border = "2px solid #e54858";
     return false;
   } else {
-    input.style.border = "2px solid green";
-    inputError.innerHTML = "";
-    return true;
+    if (validRegexEmail) {
+      input.style.border = "2px solid green";
+      inputError.innerHTML = "";
+      return true;
+    } else {
+      inputError.innerHTML = "L'email saisie n'est pas valide";
+      input.style.border = "2px solid #e54858";
+      return false;
+    }
   }
 }
 
@@ -246,10 +252,15 @@ function formValidation() {
     // on affiche la modale de remeciement avec un display block sur l'éléement
     console.log(modalSubmit[0].style.display);
     modalSubmit[0].style.display = 'block';
-    return true;
+    displayModalSubmit();
+    firstName.value = ""
+    lastName.value = ""
+    birthdayDate.value = ""
+    email.value = ""
+    quantityTournament.value = ""
+    wichTown.value = ""
+    conditionUser.value = ""  }
   }
-  return false;
-}
 
 
 
@@ -275,8 +286,6 @@ function closeSubmit() {
   email.style.border = 'none';
   birthdate.style.border = 'none';
   quantity.style.border = 'none';
-  firstName = '';
-  lastName = '';
 }
 
 // EVENT CLOSE MODAL SUBMIT
@@ -293,30 +302,3 @@ function forAllFieldsValidation() {
   checkLocations()
   checkCheckBox()
 }
-
-// SEND FORM
-
-function submitForm(e) {
-  /*console.log(e);*/
-  e.preventDefault();
- /* console.log(formValidation());*/
-  if (formValidation() == true) {
-    displayModalSubmit();
-    firstName.value = ""
-    lastName.value = ""
-    birthdayDate.value = ""
-    quantityTournament.value = ""
-    wichTown.value = ""
-    conditionUser.value = ""
-
-  } else {
-    forAllFieldsValidation();
-    document.getElementById("form").reset();
-
-  }
-}
-/*
-function formValidation() {
-  document.getElementById("form").reset();
-}
-*/
