@@ -1,304 +1,59 @@
-// Code de départ
-function editNav() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-}
+/* 
+1ere semaine
 
-// DOM Elements
-const modalbg = document.querySelector(".bground");
-const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
-const modalClose = document.querySelector("#closeform"); /*croix pour fermer la modal*/
-const modalBtnSubmit = document.querySelector('.btn-submit');
+on verifie que chaque champ texte à une valeur valide 
 
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-modalClose.addEventListener("click", closeModal);
+2eme semaine
 
-// launch modal form
-function launchModal() {
-  modalbg.style.display = "block";
-}
-
-function closeModal() {
-  modalbg.style.display = "none";
-}
-/*
-function controlInput() {
-  console.log('controlinput');
-}
 */
 
-// FORMULAIRE
-
-// Définition des variables
-let firstNameValid = false;
-let lastNameValid = false;
-let emailValid = false;
-let birthdayDateValid = false;
-let quantityTournamentValid = false;
-let wichTownValid = false;
-let conditionUserValid = false;
-let regExpName = /^[A-Za-z\-]{2,}$/;
-let regExpEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-let regExpNumbers = /^[0-9]*$/;
-
-
-// Définition des constantes
-const firstName = document.querySelector("#first");
-const lastName = document.querySelector("#last");
-const email = document.querySelector("#email");
-const birthdayDate = document.querySelector("#birthdate");
-const quantityTournament = document.querySelector("#quantity");
-const wichTown = document.querySelectorAll('input[name="location"]');
-const conditionUser = document.querySelector("#checkbox1");
-const form = document.getElementById('form');
-
-// Définition des constantes d'erreur 
-const errorFirstName = document.querySelector("#errorfirstname");
-const errorLastName = document.querySelector("#errorlastname");
-const errorEmail = document.querySelector("#errorEmail");
-const errorBirthdate = document.querySelector("#errorBirthdate");
-const errorQuantityTournament = document.querySelector("#errorQuantityTournament");
-const errorWichTown = document.querySelector("#errorWichTown");
-
-// vérifier ce selecteur !!!!!!!!!!!!!!!
-const errorConditionUser = document.querySelector("#errorConditionUser");
-
-// launch modal form
-function launchModal() {
-  modalbg.style.display = "block";
+function openModalForm(){
+  document.getElementById('modalForm').style.display = "block";
 }
 
-// Fonction qui permettent de fermer la modale
-/*
-// launch modal event
-// modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-*/
-modalBtn.forEach((btn) => btn.addEventListener("click", () => modalbg.style.display = "block"));
+// ecrire la fonction qui ferme la modale du form
 
 
-// Click to leave modal Validation
+function submitForm() {
 
-
-// Vérification des champs prénom, nom et email
-modalBtnSubmit.addEventListener("click", controlForm);
-
-
-function controlForm(event) {
-  event.preventDefault();
-  firstNameValid = controlInputNames(firstName, errorFirstName,
-    "Veuillez entrer 2 caractères ou plus pour le champ du prénom");
-
-  console.log(firstNameValid);
-
-  lastNameValid = controlInputNames(lastName, errorLastName,
-    "Veuillez entrer 2 caractères ou plus pour le champ du nom");
-
-  emailValid = controlInputEmail(email, errorEmail,
-    "L'adresse email saisie est incorrecte.");
-
-  birthdayDateValid = birthdayDateCheck(birthdayDate, errorBirthdate,
-    "Veuillez précisez votre date de naissance dans ce champ.");
-
-  quantityTournamentValid = controlInputQuantity(quantityTournament, errorQuantityTournament,
-    "Veuillez préciser dans ce champ le nombre de tournois GameOn auquel vous avez participé.",
-    "Vous devez saisir seulement des chiffres.");
-
-  wichTownValid = controlInputWichTown(wichTown, errorWichTown,
-    "Veuillez sélectionner au moins un choix de ville.");
-
-  // vérifeir que errorConditionUser est correctement rempli par le selecteur du haut
-  // faire u nconsole log de errorConditionUser  pour voir si il y a une valeur quand on check
-
-  conditionUserValid = conditionUserCheck(conditionUser, errorConditionUser,
-    "Veuillez acceptez les conditions d'utilisation.");
-
-
-  formValidation();
-}
-
-/*Nouvelle fonctions*/
-// Function FIRST NAME & LAST NAME
-function controlInputNames(input, inputError, textErrorEmpty) {
-  if (input.value.length < 2) {
-    inputError.innerHTML = textErrorEmpty;
-    input.style.border = "2px solid #e54858";
-    return false;
+  // 1 pour le champ firstname on verifie si le nombre de caractères rentré est supréreieur à 2 
+  if (document.getElementById("first").value.length < 2) {
+    document.getElementById("errorfirstname").innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du prénom";
+    document.getElementById("first").style.border = "2px solid #e54858";
+    firstNameValid = false;
   } else {
-    input.style.border = "2px solid green";
-    inputError.innerHTML = "";
-    return true;
+    document.getElementById("first").style.border = "2px solid green";
+    document.getElementById("errorfirstname").innerHTML = "";
+    firstNameValid = true;
   }
-}
+  
+  /* 2 pour le champ lastname
+  si le nombre de caractere entré dans le champ qui a pour id first lastname est inferieur à 2 alors {
+      jaffiche le message d erreur : Veuillez entrer 2 caractères
+      je colore le bord en rouge
+      je met dans la variable firstNameValid la valeur false
 
-// Function EMAIL
-function controlInputEmail(input, inputError, textErrorEmpty) {
-  const validRegexEmail = regExpEmail.test(input.value)
-  console.log(validRegexEmail);
-  if (input.value.length < 2) {
-    inputError.innerHTML = textErrorEmpty;
-    input.style.border = "2px solid #e54858";
-    return false;
-  } else {
-    if (validRegexEmail) {
-      input.style.border = "2px solid green";
-      inputError.innerHTML = "";
-      return true;
-    } else {
-      inputError.innerHTML = "L'email saisie n'est pas valide";
-      input.style.border = "2px solid #e54858";
-      return false;
-    }
+  } sinon {
+    je colore le bord en vert
+    je met dans la variable firstNameValid la valeur true
+
   }
-}
+  */
 
-//Function BIRTHDAY DATE
-function birthdayDateCheck(birthdayDate, errorBirthdate, textErrorEmpty) {
-  console.log(birthdayDate.value);
-  if (birthdayDate.value == "") {
-    console.log('erreur');
-    errorBirthdate.innerHTML = textErrorEmpty;
-    /* console.log('test');*/
-    birthdayDate.style.border = "2px solid #e54858";
-    birthdayDate = false;
-    return false;
-  } else {
-    console.log('erreur');
-
-    birthdayDateValid = true;
-    birthdayDate.style.border = "2px solid green";
-    errorBirthdate.innerHTML = "";
-    return true;
-  }
-}
-
-//FUNTION QUANTITY TOURNAMENT
-function controlInputQuantity(quantityTournament, errorQuantityTournament, textErrorEmpty, quantityTournamentValid) {
-  if (quantityTournament.value == "" || quantityTournament.value < 1) {
-    errorQuantityTournament.innerHTML = textErrorEmpty;
-    quantityTournament.style.border = "2px solid #e54858";
-    quantityTournament = false;
-    return false;
-  } else {
-    quantityTournamentValid = true;
-    quantityTournament.style.border = "2px solid green";
-    errorQuantityTournament.innerHTML = "";
-    return true;
-  }
-}
-
-//Function WICH TOWN
-function controlInputWichTown(wichTown, errorWichTown, textErrorEmpty) {
-  for (let i = 0; i < wichTown.length; i++) {
-    if (wichTown[i].checked) {
-      errorWichTown.innerHTML = "";
-      return true;
-    }
-  }
-  errorWichTown.innerHTML = textErrorEmpty;
-  /* wichTown.style.border = "2px solid #e54858";*/
-  return false;
-}
-
-
-
-// Function USER CHECK
-
-function conditionUserCheck(conditionUser, errorConditionUser) {
-  // faire un console log de errorConditionUser quand on check la case ca doit afficher une valeur
-  if (conditionUser.checked) {
-    errorConditionUser.innerHTML = "";
-    return true
-  } else {
-    errorConditionUser.innerHTML = "Veuillez acceptez les conditions d'utilisation.";
-    return false
-  }
-}
-
-/*
-function conditionUserCheck() {
-  if (checkbox1.checked === false) {
-    checkbox1.parentElement.setAttribute('data-error-visible', 'true');
-    return false;
-  }
-  checkbox1.parentElement.setAttribute('data-error-visible', 'false');
-  return true;
-}*/
-
-
-
-// fonction qui verifie si les controles de champs sont ok = true
-function formValidation() {
-  console.log(firstNameValid);
-  console.log(lastNameValid);
-  console.log(emailValid);
-  console.log(birthdayDateValid);
-  console.log(wichTownValid);
-  console.log(conditionUserValid);
-
-
-  if (firstNameValid === true
-    && lastNameValid === true
-    && emailValid === true
-    && birthdayDateValid === true
-    && quantityTournamentValid === true
-    && wichTownValid === true
-    && conditionUserValid === true) {
+  // 12 on vérifie si chaque champs est valide 
+  if (firstNameValid === true ) {
     // on affiche la modale de remeciement avec un display block sur l'éléement
-    console.log(modalSubmit[0].style.display);
+
+    // on cache la modale du formulaire
+    modalbg.style.display = 'none';
+
+    // on affiche la modale de remerciement
     modalSubmit[0].style.display = 'block';
-    displayModalSubmit();
-    firstName.value = ""
-    lastName.value = ""
-    birthdayDate.value = ""
-    email.value = ""
-    quantityTournament.value = ""
-    wichTown.value = ""
-    conditionUser.value = ""  }
+
+    // on vide les champs du formulaire
+    firstName.value = "";
+
   }
 
 
-
-// DOM ELEMENTS SUBMITTED CONFIRMATION
-const modalSubmit = document.getElementsByClassName('container-confirmation-submit');
-const closeModalSubmit = document.getElementsByClassName('close-modal-submit');
-const closeBtnConfirmation = document.getElementById('close-btn-confirmation');
-
-// ------ SUBMITTED CONFIRMATION ------ //
-
-
-// DISPLAY MODAL SUBMIT
-function displayModalSubmit() {
-  modalbg.style.display = 'none';
-  modalSubmit[0].style.display = 'block';
-}
-
-// CLOSE SUBMIT
-function closeSubmit() {
-  modalSubmit[0].style.display = 'none';
-  first.style.border = 'none';
-  last.style.border = 'none';
-  email.style.border = 'none';
-  birthdate.style.border = 'none';
-  quantity.style.border = 'none';
-}
-
-// EVENT CLOSE MODAL SUBMIT
-closeModalSubmit[0].addEventListener('click', closeSubmit);
-closeBtnConfirmation.addEventListener('click', closeSubmit);
-
-// FOR ALL FIELDS VALIDATION
-function forAllFieldsValidation() {
-  checkFirstName()
-  checkLastName()
-  checkEmail()
-  checkBirthdate()
-  checkTournamentsQuantity()
-  checkLocations()
-  checkCheckBox()
 }
