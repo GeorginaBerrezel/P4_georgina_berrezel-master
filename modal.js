@@ -7,7 +7,7 @@ on verifie que chaque champ texte à une valeur valide
 
 */
 
-function openModalForm(){
+function openModalForm() {
   document.getElementById('modalForm').style.display = "block";
 }
 
@@ -15,7 +15,7 @@ function openModalForm(){
 
 
 function submitForm() {
-
+  event.preventDefault();
   // 1 pour le champ firstname on verifie si le nombre de caractères rentré est supréreieur à 2 
   if (document.getElementById("first").value.length < 2) {
     document.getElementById("errorfirstname").innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du prénom";
@@ -26,7 +26,7 @@ function submitForm() {
     document.getElementById("errorfirstname").innerHTML = "";
     firstNameValid = true;
   }
-  
+
   /* 2 pour le champ lastname
   si le nombre de caractere entré dans le champ qui a pour id first lastname est inferieur à 2 alors {
       jaffiche le message d erreur : Veuillez entrer 2 caractères
@@ -41,17 +41,15 @@ function submitForm() {
   */
 
   // 12 on vérifie si chaque champs est valide 
-  if (firstNameValid === true ) {
-    // on affiche la modale de remeciement avec un display block sur l'éléement
-
+  if (firstNameValid === true) {
     // on cache la modale du formulaire
-    modalbg.style.display = 'none';
+    document.getElementById("modalForm").style.display = 'none';
 
-    // on affiche la modale de remerciement
-    modalSubmit[0].style.display = 'block';
+    //MON ELEMENT QUI A POUR ID - on affiche la modale de remeciement avec un display block sur l'éléement
+    document.getElementById("thanksModal").style.display = 'block';
 
     // on vide les champs du formulaire
-    firstName.value = "";
+    document.getElementById('first').value = "";
 
   }
 
