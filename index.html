@@ -36,7 +36,7 @@
         <h1 class="hero-headline">Marathon national<br>de jeux vidéos</h1>
         <p class="hero-text">
           Vous aimez jouer ? Notre prochain évènement gaming est ouvert
-          aux réservations... Places limitées !
+          aux réservations... Places limitées ! TEST
         </p>
         <button class="btn-signup modal-btn" onclick="openModalForm()">
           Je m'inscris
@@ -51,12 +51,12 @@
 
     <div class="bground" id="modalForm">
       <div class="content">
-        <span class="close" id="closeform"></span>
+        <span class="close" id="closeform" onclick="closeForm()"></span>
         <div class="modal-body">
 <!--FORM-->
           <form id="form" name="reserve" onsubmit="submitForm()" method="get">
             <div class="formData">
-              <label>Prénom TEST</label><br>
+              <label>Prénom</label><br>
               <input class="text-control" type="text" id="first" name="first" /><br>
             </div>
             <span class="error" id="errorfirstname"></span>
@@ -140,7 +140,7 @@
           <br>
           votre inscription
         </p>
-        <button id="close-btn-confirmation"> Fermer
+        <button id="close-btn-confirmation" onclick="closeModalForm()"> Fermer
         </button>
       </div>
     </div>
