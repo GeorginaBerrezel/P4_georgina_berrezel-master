@@ -1,36 +1,37 @@
+const regExpEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const email = document.getElementById('email');
+const errorEmail = document.getElementById('errorEmail');
+const locations = document.querySelectorAll ('input[name="location"]'); // tous les input qui ont u nnom 'location'
+const errorLocation = document.getElementById ('errorLocation');
+
+
 function openModalForm() {
-  console.log('jouvre la modale');
   document.getElementById('modalForm').style.display = "block";
 }
 
-// fonction qui ferme ferme la modale par la croix
 function closeModalBtn() {
-  console.log('CROIX');
-  document.getElementById('modalForm').style.display = "none";
+  document.getElementById('modalForm').style.display = "none"; // fonction qui ferme ferme la modale par la croix
 }
 
-// ecrire la fonction qui ferme la modale de remerciement du form
-
 function closeModalForm() {
-  console.log('je ferme la modale');
-  document.getElementById('thanksModal').style.display = "none";
+  document.getElementById('thanksModal').style.display = "none"; // fonction qui ferme la modale de remerciement du form
 }
 
 function submitForm() {
   event.preventDefault();
   // 1 pour le champ firstname on verifie si le nombre de caractères rentré est supréreieur à 2 
   if (document.getElementById("first").value.length < 2) {
-    console.log('Pas assez de lettre PRENOM');
     document.getElementById("errorfirstname").innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du prénom";
     document.getElementById("first").style.border = "2px solid #e54858";
     firstNameValid = false;
   } else {
-    console.log('BRAVO assez de lettre PRENOM');
     document.getElementById("first").style.border = "2px solid green";
     document.getElementById("errorfirstname").innerHTML = "";
     firstNameValid = true;
   }
+
   // 2 pour le champ lastname on verifie si le nombre de caractères rentré est supréreieur à 2 
+ 
   /* 2 POUR LE CHAMP LASTNAME
   si le nombre de caractere entré dans le champ qui a pour id last est inferieur à 2 alors {
       jaffiche le message d erreur : Veuillez entrer 2 caractères
@@ -44,18 +45,17 @@ function submitForm() {
   }
   */
   if (document.getElementById("last").value.length < 2) {
-    console.log("je n'ai pas assez de caracteres");
     document.getElementById("errorlastname").innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du nom";
     document.getElementById("last").style.border = "2px solid #e54858";
     lastNameValid = false;
   } else {
-    console.log("j'ai assez de caracteres");
     document.getElementById("last").style.border = "2px solid green";
     document.getElementById("errorlastname").innerHTML = "";
     lastNameValid = true;
   }
 
   // 3 POUR LE CHAMP EMAIL
+  /*
   if (document.getElementById("email").value.length < 2) {
     document.getElementById("errorEmail").innerHTML = "L'adresse email saisie est incorrecte.";
     document.getElementById("email").style.border = "2px solid #e54858";
@@ -65,6 +65,19 @@ function submitForm() {
     document.getElementById("errorEmail").innerHTML = "";
     emailValid = true;
   }
+*/
+if (email.value.length >= 0) {
+  if (regExpEmail.test(email.value)) { // je teste le champ qui a pour id 'email' par rapport à ma constant (rexExpEmail) 
+    email.style.border = "2px solid green";
+    errorEmail.innerHTML = "";
+    emailValid = true;
+  } else {
+    errorEmail.innerHTML = "L'adresse email saisie est incorrecte.";
+    email.style.border = "2px solid #e54858";
+    emailValid = false;
+  }
+}
+
 
   // 4 POUR LE CHAMP BIRTHDAY DATE
   if (document.getElementById("birthdate").value.length < 6) {
@@ -89,23 +102,32 @@ function submitForm() {
   }
 
   // 6 POUR LE CHAMP QUEL VILLE
+  /*
   if (document.getElementById('location1').checked || document.getElementById('location2').checked || document.getElementById('location3').checked || document.getElementById('location4').checked || document.getElementById('location5').checked || document.getElementById('location6').checked) {
-    console.log('coché');
     document.getElementById("errorWichTown").innerHTML = "";
     wichTownValid = true;
   } else {
-    console.log('pas coché');
     document.getElementById("errorWichTown").innerHTML = "Veuillez sélectionner au moins un choix de ville.";
     wichTownValid = false;
   }
+*/
+for (const location of locations) {// Pour toutes mes locationS on boucle sur chaque element de location
+  console.log(location);
+  if (location.checked) {
+    errorLocation.innerHTML = "";
+    wichTownValid = true;
+    break; // l'element est ok on valide et on sort de la boucle pour ne pas aller au bout
+  } else {
+    errorLocation.innerHTML = "Veuillez sélectionner au moins un choix de ville.";
+    wichTownValid = false;
+  }
+} 
 
   // 7 POUR LES CONDITIONS D'UTILISATIONS
   if (document.getElementById('checkbox1').checked) {
-    console.log('Les conditions d utilisation SONT COCHE');
     document.getElementById("errorConditionUser").innerHTML = "";
     conditionUserValid = true;
   } else {
-    console.log('ATTENTION ! Les conditions d utilisation NE SONT COCHE');
     document.getElementById("errorConditionUser").innerHTML = "Veuillez acceptez les conditions d'utilisation.";
     conditionUserValid = false;
   }
@@ -124,7 +146,7 @@ function submitForm() {
     // on vide les champs du formulaire
     document.getElementById('first').value = "";
     document.getElementById('last').value = "";
-    document.getElementById('email').value = "";
+    email.value = "";
     document.getElementById('birthdate').value = "";
     document.getElementById('quantity').value = "";
   }
