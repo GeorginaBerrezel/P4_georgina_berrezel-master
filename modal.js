@@ -1,16 +1,18 @@
 function openModalForm() {
+  console.log('jouvre la modale');
   document.getElementById('modalForm').style.display = "block";
 }
 
 // fonction qui ferme ferme la modale par la croix
-function closeForm() {
-  document.getElementsByClassName('bground').style.display = "none";
+function closeModalBtn() {
+  console.log('CROIX');
+  document.getElementById('modalForm').style.display = "none";
 }
-
 
 // ecrire la fonction qui ferme la modale de remerciement du form
 
 function closeModalForm() {
+  console.log('je ferme la modale');
   document.getElementById('thanksModal').style.display = "none";
 }
 
@@ -116,6 +118,7 @@ function submitForm() {
      && quantityTournamentValid === true 
      && wichTownValid === true 
      && conditionUserValid === true) {
+    document.getElementById("closeform").style.display = 'block'; // on affiche la croix
     document.getElementById("modalForm").style.display = 'none'; // on cache la modale du formulaire
     document.getElementById("thanksModal").style.display = 'block'; // on affiche la modale de remeciement avec un display block sur l'éléement
     // on vide les champs du formulaire
