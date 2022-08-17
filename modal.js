@@ -93,15 +93,48 @@ function submitForm() {
 
 
   // 4 POUR LE CHAMP BIRTHDAY DATE
+  console.log(birthdate.value);
   if (birthdate.value.length < 6) {
     errorBirthdate.innerHTML = "Veuillez précisez votre date de naissance dans ce champ.";
     birthdate.style.border = "2px solid #e54858";
     birthDateValid = false;
   } else {
+    const now = new Date().getTime();
+    const inputDate = new Date(birthdate.value).getTime();
+    const result = now - inputDate; 
+    console.log(result);
+    if (result < 0) {
+      errorBirthdate.innerHTML = "Veuillez précisez votre date de naissance dans ce champ.";
+      birthdate.style.border = "2px solid #e54858";
+      birthDateValid = false;
+    } else {
+      birthdate.style.border = "2px solid green";
+      errorBirthdate.innerHTML = "";
+      birthdayDateValid = true;
+    }
+  }
+
+  /*
+  AUTRE SOLUTION
+  const now = new Date().getTime(); // je recupère la date actuel en ms
+  let inputDate;
+  if (birthdate.value) { // je ecupre la date donnée par l'utilisateur
+    inputDate = new Date(birthdate.value).getTime()
+  } else { // sinon elle est egale à la date d'aujourd'hui
+    inputDate = now
+  }
+
+  const result = inputDate - now;
+  if (result < 0) {
     birthdate.style.border = "2px solid green";
     errorBirthdate.innerHTML = "";
     birthdayDateValid = true;
+  } else {
+    errorBirthdate.innerHTML = "Veuillez précisez votre date de naissance dans ce champ.";
+    birthdate.style.border = "2px solid #e54858";
+    birthDateValid = false;
   }
+  */
 
   // 5 POUR LE CHAMP TOURNOIE
   if (quantityTournament.value.length < 1) {
@@ -171,7 +204,10 @@ function submitForm() {
     quantityTournament.value = "";
     quantityTournament.style.border = "none";
 
-    locations.checked = "";
+    for (const location of locations) {
+      location.checked = false;
+    }
+
     conditionUser.checked = "";
   }
 }
