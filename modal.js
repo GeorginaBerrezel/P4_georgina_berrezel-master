@@ -5,7 +5,7 @@ const email = document.getElementById('email');
 const regExpEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const birthdate = document.getElementById("birthdate");
 const quantityTournament = document.getElementById("quantity");
-const locations = document.querySelectorAll('input[name="location"]'); // tous les input qui ont u nnom 'location'
+const locations = document.querySelectorAll('input[name="location"]'); // tous les input qui ont un nom 'location'
 const conditionUser = document.getElementById('checkbox1');
 
 // Définition des constantes d'erreurs
@@ -32,7 +32,8 @@ function closeModalForm() {
 
 function submitForm() {
   event.preventDefault();
-  // 1 pour le champ firstname on verifie si le nombre de caractères rentré est supréreieur à 2 
+
+  // POUR LE CHAMPS FIRST 
   if (firstName.value.length < 2) {
     errorFirstName.innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du prénom";
     firstName.style.border = "2px solid #e54858";
@@ -43,8 +44,7 @@ function submitForm() {
     firstNameValid = true;
   }
 
-  // 2 pour le champ lastname on verifie si le nombre de caractères rentré est supréreieur à 2 
-
+// 2 POUR LE CHAMPS LAST
   /* 2 POUR LE CHAMP LASTNAME
   si le nombre de caractere entré dans le champ qui a pour id last est inferieur à 2 alors {
       jaffiche le message d erreur : Veuillez entrer 2 caractères
@@ -99,15 +99,15 @@ function submitForm() {
     birthdate.style.border = "2px solid #e54858";
     birthDateValid = false;
   } else {
-    const now = new Date().getTime();
-    const inputDate = new Date(birthdate.value).getTime();
-    const result = now - inputDate; 
+    const now = new Date().getTime(); // CONST la DATE ACTUEL en ms
+    const inputDate = new Date(birthdate.value).getTime(); // CONST la date donnée par l'utilisateur (sa date de naissance)
+    const result = now - inputDate; // CONST de la date d'aujourdhui (NOW) MOINS la date de mon input donnée par l'utilisateur (INPUTDATE)
     console.log(result);
-    if (result < 0) {
+    if (result < 0) { // Si le resultat est supérieur à zéro, message d'erreur et cela retourne un false
       errorBirthdate.innerHTML = "Veuillez précisez votre date de naissance dans ce champ.";
       birthdate.style.border = "2px solid #e54858";
       birthDateValid = false;
-    } else {
+    } else { // SINON je passe dans ma constante birthdate qui a comme élément pour id "birthdate" une couleur verte, je vide les champs...
       birthdate.style.border = "2px solid green";
       errorBirthdate.innerHTML = "";
       birthdayDateValid = true;
@@ -116,20 +116,23 @@ function submitForm() {
 
   /*
   AUTRE SOLUTION
-  const now = new Date().getTime(); // je recupère la date actuel en ms
-  let inputDate;
-  if (birthdate.value) { // je ecupre la date donnée par l'utilisateur
-    inputDate = new Date(birthdate.value).getTime()
-  } else { // sinon elle est egale à la date d'aujourd'hui
-    inputDate = now
+
+  const now = new Date().getTime();                     // constante de la date ACTUEL EN MS
+  let inputDate;                                        // constante de la date donnée par l'utilisateur
+
+  if (birthdate.value) {                                // SI ma constante birthdate à comme valeur
+    inputDate = new Date(birthdate.value).getTime()     // je récupère la date donnée par l'utilisateur (sa date de naissance)
+  } else {                                              // SION 
+    inputDate = now                                     // elle est egale à la date d'aujourd'hui
   }
 
-  const result = inputDate - now;
-  if (result < 0) {
+  const result = inputDate - now;                       // CONST la date de mon input donnée par l'utilisateur (INPUTDATE) MOINS la date d'aujourdhui (NOW) 
+
+  if (result < 0) {                                     // SI le resultat est supérieur à zéro c'est ok
     birthdate.style.border = "2px solid green";
     errorBirthdate.innerHTML = "";
     birthdayDateValid = true;
-  } else {
+  } else {                                              // SINON c'est faux
     errorBirthdate.innerHTML = "Veuillez précisez votre date de naissance dans ce champ.";
     birthdate.style.border = "2px solid #e54858";
     birthDateValid = false;
@@ -157,11 +160,12 @@ function submitForm() {
     wichTownValid = false;
   }
 */
+
   for (const location of locations) {// Pour toutes mes locationS on boucle sur chaque element de location
     if (location.checked) {
       errorLocation.innerHTML = "";
       wichTownValid = true;
-      break; // l'element est ok on valide et on sort de la boucle pour ne pas aller au bout
+      break; // l'element est ok on valide et ON SORT DE LA BOUCLE pour ne pas aller au bout
     } else {
       errorLocation.innerHTML = "Veuillez sélectionner au moins un choix de ville.";
       wichTownValid = false;
@@ -177,7 +181,7 @@ function submitForm() {
     conditionUserValid = false;
   }
 
-  // 12 on vérifie si chaque champs est valide 
+  // on vérifie si chaque champs est valide 
   if (firstNameValid === true
     && lastNameValid === true
     && emailValid === true
@@ -187,7 +191,7 @@ function submitForm() {
     && conditionUserValid === true) {
     document.getElementById("closeform").style.display = 'block'; // on affiche la croix
     document.getElementById("modalForm").style.display = 'none'; // on cache la modale du formulaire
-    document.getElementById("thanksModal").style.display = 'block'; // on affiche la modale de remeciement avec un display block sur l'éléement
+    document.getElementById("thanksModal").style.display = 'block'; // on affiche la modale de remeciement avec un display block sur l'élément
     // on vide les champs du formulaire
     firstName.value = "";
     firstName.style.border = "none";
